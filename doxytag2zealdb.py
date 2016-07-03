@@ -131,8 +131,8 @@ if __name__ == '__main__':
             # Use (partially-) qualified names for members of classes, etc.
             parent_entry = entry.findParent()
             if parent_entry.get('kind') in ['class', 'struct', 'namespace']:
-                zeal_entry_name = ''.join(
-                    [parent_entry.findChild('name').contents[0], '::',
+                zeal_entry_name = '::'.join(
+                    [parent_entry.findChild('name').contents[0],
                      zeal_entry_name])
 
             # Use an entry type of "method" for class methods

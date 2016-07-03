@@ -67,8 +67,12 @@ if __name__ == '__main__':
 
     c.execute('CREATE UNIQUE INDEX anchor ON searchIndex (name, type, path)')
 
-    with open(tag_filename, 'r') as tag_file:
-        soup = BeautifulSoup(tag_file, 'lxml-xml')
+    try:
+        with open(tag_filename, 'r') as tag_file:
+            soup = BeautifulSoup(tag_file, 'lxml-xml')
+    except:
+        print('Provide a valid Doxygen tag file!', file=sys.stderr)
+        exit(1)
 
     # First pass: "compound" tags that are pretty straightforward to
     # handle. Some tag "kind"s are not handled.

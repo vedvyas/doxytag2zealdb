@@ -32,10 +32,11 @@ C++ codebases. At present:
    `foo.dox`. As suggested in the
    [Doxygen section of the Dash docset guide][8], at least make sure
    `GENERATE_DOCSET = yes` in `foo.dox`. Ensure HTML output is enabled and
-   specify tag file generation with `GENERATE_TAGFILE =
-   /path/to/desired/foo.tag`. You may wish to further customize
-   `DOCSET_BUNDLE_ID` (which controls the name of the docset subdirectory),
-   other `DOCSET_*` options, and the other options mentioned in the guide.
+   specify tag file generation with
+   `GENERATE_TAGFILE = /path/to/desired/foo.tag`. You may wish to further
+   customize `DOCSET_BUNDLE_ID` (which controls the name of the docset
+   subdirectory), other `DOCSET_*` options, and the other options mentioned in
+   the guide.
 
 2. If the top-level Doxygen output directory is `output`, go to `output/html/`
    and run `make`. An error about missing `docsetutil` is fine (and expected

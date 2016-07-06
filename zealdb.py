@@ -112,6 +112,8 @@ class ZealDB(object):
         '''Enter ZealDB context. Opens a connection to the database.'''
         self.open()
 
+        return self
+
     def __exit__(self, exc_type, exc_value, exc_traceback):
         '''Exit ZealDB context. Commits transactions and closes the database
         connection.'''

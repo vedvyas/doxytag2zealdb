@@ -92,12 +92,14 @@ class ZealDB(object):
 
             if self.verbose: print('Dropped existing table', file=sys.stderr)
 
-        c.execute(
-            '''CREATE TABLE searchIndex
-               (id INTEGER PRIMARY KEY, name TEXT, type TEXT, path TEXT)''')
+        c.executescript(
+            '''
+            CREATE TABLE searchIndex
+            (id INTEGER PRIMARY KEY, name TEXT, type TEXT, path TEXT);
 
-        c.execute(
-            'CREATE UNIQUE INDEX anchor ON searchIndex (name, type, path)')
+            CREATE UNIQUE INDEX anchor ON searchIndex (name, type, path);
+            '''
+        )
 
     def close(self):
         '''Commit transactions and close connection if open.'''

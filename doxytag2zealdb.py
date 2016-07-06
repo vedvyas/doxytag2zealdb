@@ -39,10 +39,11 @@ References:
 '''
 
 from __future__ import print_function
-import sys
-import sqlite3
-from bs4 import BeautifulSoup
+
 from docopt import docopt
+
+from doxytagfile import TagfileProcessor
+from zealdb import ZealDB
 
 if __name__ == '__main__':
     args = docopt(__doc__, version='doxytag2zealdb v0.1')
@@ -51,125 +52,7 @@ if __name__ == '__main__':
     tag_filename = args['--tag']
     db_filename = args['--db']
 
-    entry_count = 0
-
-    conn = sqlite3.connect(db_filename)
-    c = conn.cursor()
-
-    c.execute('SELECT name FROM sqlite_master WHERE type="table"')
-    if (u'searchIndex',) in c:
-        c.execute('DROP TABLE searchIndex')
-
-        if verbose: print('Dropped existing table', file=sys.stderr)
-
-    c.execute('''CREATE TABLE searchIndex
-                 (id INTEGER PRIMARY KEY, name TEXT, type TEXT, path TEXT)''')
-
-    c.execute('CREATE UNIQUE INDEX anchor ON searchIndex (name, type, path)')
-
-    try:
-        with open(tag_filename, 'r') as tag_file:
-            soup = BeautifulSoup(tag_file, 'lxml-xml')
-    except:
-        print('Provide a valid Doxygen tag file!', file=sys.stderr)
-        exit(1)
-
-    # First pass: "compound" tags that are pretty straightforward to
-    # handle. Some tag "kind"s are not handled.
-    for doxygen_kind in [
-            u'class',
-            # u'dir',
-            u'file',
-            # u'group',
-            u'namespace',
-            # u'page',
-            u'struct',
-            u'union'
-    ]:
-        zeal_entry_type = doxygen_kind.capitalize()
-
-        for entry in soup.findAll(name='compound',
-                                  attrs={'kind': doxygen_kind}):
-            # Note: due to conflict between tag.name and an actual tag named
-            # "name", using findChild('name')
-            zeal_entry_name = entry.findChild('name').contents[0]
-
-            doxygen_filename = entry.filename.contents[0]
-            if doxygen_kind == u'file': doxygen_filename += '.html'
-
-            db_entry = (zeal_entry_name, zeal_entry_type, doxygen_filename)
-
-            if verbose:
-                print('Inserting %s "%s" -> %s' % (
-                    zeal_entry_type, zeal_entry_name, doxygen_filename),
-                      file=sys.stderr)
-
-            c.execute('''INSERT OR IGNORE INTO searchIndex(name, type, path)
-                         VALUES (?, ?, ?)''', db_entry)
-            entry_count += 1
-
-    # Second pass: "member" tags. Various transformations may be needed
-    # depending on the tag "kind".
-    for doxygen_kind in [
-            u'function',
-            u'define',
-            u'enumeration',
-            u'enumvalue',
-            u'typedef',
-            u'variable'
-    ]:
-        zeal_entry_type = doxygen_kind.capitalize()
-
-        if doxygen_kind == u'enumeration':
-            zeal_entry_type = u'Enum'
-        elif doxygen_kind == u'enumvalue':
-            zeal_entry_type = u'Value'
-        elif doxygen_kind == u'typedef':
-            zeal_entry_type = u'Type'
-
-        for entry in soup.findAll(name='member', attrs={'kind': doxygen_kind}):
-            # Note: due to conflict between tag.name and an actual tag named
-            # "name", using findChild('name')
-            zeal_entry_name = entry.findChild('name').contents[0]
-
-            # Use (partially-) qualified names for members of classes, etc.
-            parent_entry = entry.findParent()
-            if parent_entry.get('kind') in ['class', 'struct', 'namespace']:
-                zeal_entry_name = '::'.join(
-                    [parent_entry.findChild('name').contents[0],
-                     zeal_entry_name])
-
-            # Use an entry type of "method" for class methods
-            if doxygen_kind == u'function' and parent_entry.get('kind') in [
-                    'class', 'struct']:
-                zeal_entry_type = u'Method'
-
-            # Include function/method arguments and return type
-            if doxygen_kind == u'function':
-                func_args = entry.findChild('arglist')
-                if func_args and len(func_args.contents):
-                    zeal_entry_name += func_args.contents[0]
-
-                ret_type = entry.findChild('type')
-                if ret_type and len(ret_type.contents):
-                    zeal_entry_name += ' -> ' + ret_type.contents[0]
-
-            doxygen_filename = '#'.join([entry.anchorfile.contents[0],
-                                         entry.anchor.contents[0]])
-
-            db_entry = (zeal_entry_name, zeal_entry_type, doxygen_filename)
-
-            if verbose:
-                print('Inserting %s "%s" -> %s' % (
-                    zeal_entry_type, zeal_entry_name, doxygen_filename),
-                      file=sys.stderr)
-
-            c.execute('''INSERT OR IGNORE INTO searchIndex(name, type, path)
-                         VALUES (?, ?, ?)''', db_entry)
-            entry_count += 1
-
-    if verbose:
-        print('Inserted %d entries' % entry_count, file=sys.stderr)
-
-    conn.commit()
-    conn.close()
+    with ZealDB(db_filename, verbose=verbose) as zdb:
+        with open(tag_filename, 'r') as tag:
+            tagfile_proc = TagfileProcessor(tag, zdb, verbose=verbose)
+            tagfile_proc.process()

@@ -331,7 +331,7 @@ class functionTagProcessor(TagProcessorWithAutoStuffAndMemberTagName):
         if tag.findParent().get('kind') in ['class', 'struct']:
             return u'Method'
 
-        return super(functionTagProcessor, self).get_entry_type()
+        return super(functionTagProcessor, self).get_entry_type(tag)
 
 
 class defineTagProcessor(TagProcessorWithAutoStuffAndMemberTagName):

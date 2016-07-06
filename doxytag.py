@@ -268,7 +268,7 @@ class functionTagProcessor(TagProcessorWithAutoStuffAndMemberTagName):
             **partially_qualified_names: bool. See get_name() for more info.
             **include_function_signatures: bool. See get_name() for more info.
         '''
-        super(functionTagProcessor, self).__init__(**kwargs)
+        super(functionTagProcessor, self).__init__()
 
         self.partially_qualified_names = kwargs.get(
             'partially_qualified_names', False)

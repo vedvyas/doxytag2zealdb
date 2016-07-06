@@ -173,29 +173,31 @@ class TagProcessorWithAutoEntryTypeAndFindByNamePlusAutoKind(
         TagProcessorWithEntryTypeAndFindByNamePlusKind):
     '''
     This class attempts to provide further convenience by automatically
-    determining the entry type from the class name. So subclass
-    ``fooTagProcessor'' will have "foo" automatically extracted as the entry
-    type when it calls its superclass initializer. It is then assumed that the
-    tag kind attribute is the same as the entry type.
+    determining the entry type and tag kind attribute from the class name. So
+    subclass "fooTagProcessor" will have "Foo" automatically extracted as the
+    entry type and "foo" automatically extracted as the tag kind attribute when
+    it calls its superclass initializer.
     '''
 
     def __init__(self, tag_name):
         '''Initializer.
 
         Args:
-            tag_name: string name of tag to match. Usually "compound" or
-            "member".
+            tag_name: unicode string name of tag to match. Usually u'compound'
+                or u'member'.
         '''
         # Extract entry type from class name, assuming that it is of the format
         # "$(entry_type)TagProcessor"
         class_name = type(self).__name__
         end_idx = class_name.rfind('TagProcessor')
-        entry_type = unicode(class_name[:end_idx].capitalize())
+
+        tag_kind = unicode(class_name[:end_idx])
+        entry_type = tag_kind.capitalize()
 
         # Also assume that the matching tag kind attribute is the same as the
         # entry type
         super(TagProcessorWithAutoEntryTypeAndFindByNamePlusAutoKind,
-              self).__init__(entry_type, tag_name, entry_type)
+              self).__init__(entry_type, tag_name, tag_kind)
 
 
 class TagProcessorWithAutoStuffAndCompoundTagName(

@@ -109,10 +109,17 @@ class TagfileProcessor(object):
     def process(self):
         '''Run all tag processors.'''
         for tag_proc in self.tag_procs:
+            before_count = self.entry_count
             self.run_tag_processor(tag_proc)
+            after_count = self.entry_count
+
+            if self.verbose:
+                print('Inserted %d entries for "%s" tag processor' % (
+                    after_count - before_count, tag_proc), file=sys.stderr)
 
         if self.verbose:
-            print('Inserted %d entries' % self.entry_count, file=sys.stderr)
+            print('Inserted %d entries overall' % self.entry_count,
+                  file=sys.stderr)
 
     def run_tag_processor(self, tag_proc_name):
         '''Run a tag processor.

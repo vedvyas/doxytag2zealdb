@@ -147,7 +147,7 @@ if __name__ == '__main__':
             # Include function/method arguments and return type
             if doxygen_kind == u'function':
                 func_args = entry.findChild('arglist')
-                if args and len(func_args.contents):
+                if func_args and len(func_args.contents):
                     zeal_entry_name += func_args.contents[0]
 
                 ret_type = entry.findChild('type')

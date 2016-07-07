@@ -54,6 +54,25 @@ C++ codebases. At present:
    `output/html/$(DOCSET_BUNDLE_ID).docset` should be ready to use with the
    tool of your choice.
 
+## Extending doxytag2zealdb ##
+
+There are multiple ways to extending doxytag2zealdb's behavior:
+
+- Options can be added to existing `TagProcessor`s. See `TagProcessor` and
+  `functionTagProcessor` for examples of this. Also see how keyword arguments get
+  passed around from `doxytag2zealdb.py` to `TagfileProcessor` to
+  `TagProcessor`s and their superclasses.
+
+- One can subclass `TagProcessor` (or one of its existing child classes) to
+  handle a new tag case. Then add it to the registrations in
+  `TagfileProcessor.init_tag_processors()` or separately register it at
+  runtime, if you like.
+
+- Command-line options are easily added using [docopt][9]. See the module
+  docstring and code in `doxytag2zealdb.py`.
+
+- ...
+
 ## License ##
 
 doxytag2zealdb is distributed under the terms of the GNU General Public License
@@ -67,3 +86,4 @@ version 3 or (at your option) any later version. Please see COPYING.
 [6]: https://kapeli.com/docsets#createsqlite
 [7]: https://kapeli.com/docsets#supportedentrytypes
 [8]: https://kapeli.com/docsets#doxygen
+[9]: http://docopt.org

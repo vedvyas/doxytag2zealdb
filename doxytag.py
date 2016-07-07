@@ -223,7 +223,7 @@ class TagProcessorWithAutoStuffAndCompoundTagName(
         TagProcessorWithAutoEntryTypeAndFindByNamePlusAutoKind):
     '''
     This subclass goes a step further and hard-codes the name of matching tags
-    to "compound".
+    to u"compound".
     '''
 
     def __init__(self, **kwargs):
@@ -235,7 +235,7 @@ class TagProcessorWithAutoStuffAndMemberTagName(
         TagProcessorWithAutoEntryTypeAndFindByNamePlusAutoKind):
     '''
     This subclass goes a step further and hard-codes the name of matching tags
-    to "compound".
+    to u"member".
     '''
 
     def __init__(self, **kwargs):

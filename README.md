@@ -48,7 +48,8 @@ C++ codebases. At present:
    left uncustomized in `foo.dox`. This is where doxytag2zealdb comes in:
    
         doxytag2zealdb.py --tag /path/to/desired/foo.tag \
-          --db /path/to/output/html/$(DOCSET_BUNDLE_ID).docset/Contents/Resources/docSet.dsidx
+          --db /path/to/output/html/$(DOCSET_BUNDLE_ID).docset/Contents/Resources/docSet.dsidx \
+          --partially-qualified-names --include-function-signatures
 
 4. After adding an icon and whatever else,
    `output/html/$(DOCSET_BUNDLE_ID).docset` should be ready to use with the

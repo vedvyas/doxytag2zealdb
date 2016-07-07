@@ -40,8 +40,14 @@ class TagProcessor(object):
     TagfileProcessor.init_tag_processors(...).
     '''
 
-    def __init__(self):
-        pass
+    def __init__(self, **kwargs):
+        '''Initializer.
+
+        Args:
+            **partially_qualified_names: bool. See get_name() for more info.
+        '''
+        self.partially_qualified_names = kwargs.get(
+            'partially_qualified_names', False)
 
     def match_criterion(self, tag):
         '''Determine if a tag matches a particular criterion.
@@ -75,7 +81,11 @@ class TagProcessor(object):
     def get_name(self, tag):
         '''Extract and return a representative "name" from a tag.
 
-        Override as necessary.
+        Override as necessary. get_name's output can be controlled through
+        keyword arguments that are provided when initializing a
+        TagProcessor. For instance, a member of a class or namespace can have
+        its parent scope included in the name by passing
+        partially_qualified_names=True to __init__().
 
         Args:
             tag: A BeautifulSoup Tag that satisfies match_criterion.
@@ -84,7 +94,15 @@ class TagProcessor(object):
             A string that would be appropriate to use as an entry name in a
             Zeal database.
         '''
-        return tag.findChild('name').contents[0]
+        name = tag.findChild('name').contents[0]
+
+        if self.partially_qualified_names:
+            # Include parent scope in returned name
+            parent_tag = tag.findParent()
+            if parent_tag.get('kind') in ['class', 'struct', 'namespace']:
+                name = parent_tag.findChild('name').contents[0] + '::' + name
+
+        return name
 
     def get_entry_type(self, tag):
         '''Extract and return a representative "entry type" from a tag.
@@ -125,7 +143,7 @@ class TagProcessorWithEntryTypeAndFindByNamePlusKind(TagProcessor):
     identified by their name and "kind" attribute.
     '''
 
-    def __init__(self, entry_type, tag_name, tag_kind):
+    def __init__(self, entry_type, tag_name, tag_kind, **kwargs):
         '''Initializer.
 
         Args:
@@ -135,7 +153,8 @@ class TagProcessorWithEntryTypeAndFindByNamePlusKind(TagProcessor):
             tag_kind: The unicode string "kind" attribute that matching tags
                 should have.
         '''
-        super(TagProcessorWithEntryTypeAndFindByNamePlusKind, self).__init__()
+        super(TagProcessorWithEntryTypeAndFindByNamePlusKind,
+              self).__init__(**kwargs)
 
         # Save this to return from get_entry_type override
         self.entry_type = entry_type
@@ -179,7 +198,7 @@ class TagProcessorWithAutoEntryTypeAndFindByNamePlusAutoKind(
     it calls its superclass initializer.
     '''
 
-    def __init__(self, tag_name):
+    def __init__(self, tag_name, **kwargs):
         '''Initializer.
 
         Args:
@@ -197,7 +216,7 @@ class TagProcessorWithAutoEntryTypeAndFindByNamePlusAutoKind(
         # Also assume that the matching tag kind attribute is the same as the
         # entry type
         super(TagProcessorWithAutoEntryTypeAndFindByNamePlusAutoKind,
-              self).__init__(entry_type, tag_name, tag_kind)
+              self).__init__(entry_type, tag_name, tag_kind, **kwargs)
 
 
 class TagProcessorWithAutoStuffAndCompoundTagName(
@@ -207,9 +226,9 @@ class TagProcessorWithAutoStuffAndCompoundTagName(
     to "compound".
     '''
 
-    def __init__(self):
+    def __init__(self, **kwargs):
         super(TagProcessorWithAutoStuffAndCompoundTagName, self).__init__(
-            u'compound')
+            u'compound', **kwargs)
 
 
 class TagProcessorWithAutoStuffAndMemberTagName(
@@ -219,9 +238,9 @@ class TagProcessorWithAutoStuffAndMemberTagName(
     to "compound".
     '''
 
-    def __init__(self):
+    def __init__(self, **kwargs):
         super(TagProcessorWithAutoStuffAndMemberTagName, self).__init__(
-            u'member')
+            u'member', **kwargs)
 
 
 class classTagProcessor(TagProcessorWithAutoStuffAndCompoundTagName):
@@ -267,13 +286,10 @@ class functionTagProcessor(TagProcessorWithAutoStuffAndMemberTagName):
         '''Initializer.
 
         Args:
-            **partially_qualified_names: bool. See get_name() for more info.
             **include_function_signatures: bool. See get_name() for more info.
         '''
-        super(functionTagProcessor, self).__init__()
+        super(functionTagProcessor, self).__init__(**kwargs)
 
-        self.partially_qualified_names = kwargs.get(
-            'partially_qualified_names', False)
         self.include_function_signatures = kwargs.get(
             'include_function_signatures', False)
 
@@ -281,10 +297,8 @@ class functionTagProcessor(TagProcessorWithAutoStuffAndMemberTagName):
         '''Override. Extract a representative "name" from a function tag.
 
         get_name's output can be controlled through keyword arguments that are
-        provided when initializing a functionTagProcessor. For instance, a
-        function's parent scope can be included in the name by passing
-        partially_qualified_names=True. Similarly, function arguments and
-        return types can be included by passing
+        provided when initializing a functionTagProcessor. For instance,
+        function arguments and return types can be included by passing
         include_function_signatures=True to __init__().
 
         Args:
@@ -295,12 +309,6 @@ class functionTagProcessor(TagProcessorWithAutoStuffAndMemberTagName):
             function in a Zeal database.
         '''
         name = super(functionTagProcessor, self).get_name(tag)
-
-        if self.partially_qualified_names:
-            # Include parent scope in returned name
-            parent_tag = tag.findParent()
-            if parent_tag.get('kind') in ['class', 'struct', 'namespace']:
-                name = parent_tag.findChild('name').contents[0] + '::' + name
 
         if self.include_function_signatures:
             # Include complete function signature in returned name
@@ -342,30 +350,30 @@ class defineTagProcessor(TagProcessorWithAutoStuffAndMemberTagName):
 class enumerationTagProcessor(TagProcessorWithAutoStuffAndMemberTagName):
     '''Process enumeration tags.'''
 
-    def __init__(self):
+    def __init__(self, **kwargs):
         '''Initializer. Utilizes inherited machinery, then manually tweaks the
         entry type to be one of the types supported by Dash (see README).'''
-        super(enumerationTagProcessor, self).__init__()
+        super(enumerationTagProcessor, self).__init__(**kwargs)
         self.entry_type = u'Enum'
 
 
 class enumvalueTagProcessor(TagProcessorWithAutoStuffAndMemberTagName):
     '''Process enumeration value tags.'''
 
-    def __init__(self):
+    def __init__(self, **kwargs):
         '''Initializer. Utilizes inherited machinery, then manually tweaks the
         entry type to be one of the types supported by Dash (see README).'''
-        super(enumvalueTagProcessor, self).__init__()
+        super(enumvalueTagProcessor, self).__init__(**kwargs)
         self.entry_type = u'Value'
 
 
 class typedefTagProcessor(TagProcessorWithAutoStuffAndMemberTagName):
     '''Process typedef tags.'''
 
-    def __init__(self):
+    def __init__(self, **kwargs):
         '''Initializer. Utilizes inherited machinery, then manually tweaks the
         entry type to be one of the types supported by Dash (see README).'''
-        super(typedefTagProcessor, self).__init__()
+        super(typedefTagProcessor, self).__init__(**kwargs)
         self.entry_type = u'Type'
 
 

@@ -75,17 +75,17 @@ class TagfileProcessor(object):
         '''Register the TagProcessors that are bundled with doxytag2zealdb.'''
         register = self.register_tag_processor
 
-        register('class', classTagProcessor())
-        register('file', fileTagProcessor())
-        register('namespace', namespaceTagProcessor())
-        register('struct', structTagProcessor())
-        register('union', unionTagProcessor())
+        register('class', classTagProcessor(**self.opts))
+        register('file', fileTagProcessor(**self.opts))
+        register('namespace', namespaceTagProcessor(**self.opts))
+        register('struct', structTagProcessor(**self.opts))
+        register('union', unionTagProcessor(**self.opts))
         register('function', functionTagProcessor(**self.opts))
-        register('define', defineTagProcessor())
-        register('enumeration', enumerationTagProcessor())
-        register('enumvalue', enumvalueTagProcessor())
-        register('typedef', typedefTagProcessor())
-        register('variable', variableTagProcessor())
+        register('define', defineTagProcessor(**self.opts))
+        register('enumeration', enumerationTagProcessor(**self.opts))
+        register('enumvalue', enumvalueTagProcessor(**self.opts))
+        register('typedef', typedefTagProcessor(**self.opts))
+        register('variable', variableTagProcessor(**self.opts))
 
     def register_tag_processor(self, name, tag_processor):
         '''Register a tag processor.

@@ -53,7 +53,7 @@ Python 2.7 with `beautifulsoup4` (4.4.1) and `docopt` (0.6.2)
    
         doxytag2zealdb.py --tag /path/to/desired/foo.tag \
           --db /path/to/output/html/$(DOCSET_BUNDLE_ID).docset/Contents/Resources/docSet.dsidx \
-          --partially-qualified-names --include-function-signatures
+          --include-parent-scopes --include-function-signatures
 
 4. After adding an icon and whatever else,
    `output/html/$(DOCSET_BUNDLE_ID).docset` should be ready to use with the

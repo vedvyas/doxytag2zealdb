@@ -78,7 +78,7 @@ class TagProcessor(object):
         Override as necessary.
 
         Args:
-            tag: A BeautifulSoup Tag.
+            tag: A BeautifulSoup Tag that satisfies match_criterion.
 
         Returns:
             A string that would be appropriate to use as an entry name in a
@@ -92,7 +92,7 @@ class TagProcessor(object):
         Override as necessary.
 
         Args:
-            tag: A BeautifulSoup Tag.
+            tag: A BeautifulSoup Tag that satisfies match_criterion.
 
         Returns:
             A string that would be appropriate to use as an entry type in a
@@ -107,7 +107,7 @@ class TagProcessor(object):
         covers all the cases of interest.
 
         Args:
-            tag: A BeautifulSoup Tag.
+            tag: A BeautifulSoup Tag that satisfies match_criterion.
 
         Returns:
             A string that would be appropriate to use as the documentation
@@ -161,7 +161,7 @@ class TagProcessorWithEntryTypeAndFindByNamePlusKind(TagProcessor):
         '''Override. Return entry type this instance was initialized with.
 
         Args:
-            tag: A BeautifulSoup Tag.
+            tag: A BeautifulSoup Tag that satisfies match_criterion.
 
         Returns:
             string entry type that this instance was initialized with.
@@ -288,7 +288,7 @@ class functionTagProcessor(TagProcessorWithAutoStuffAndMemberTagName):
         include_function_signatures=True to __init__().
 
         Args:
-            tag: A BeautifulSoup Tag.
+            tag: A BeautifulSoup Tag for a function.
 
         Returns:
             A string that would be appropriate to use as an entry name for a
@@ -320,7 +320,7 @@ class functionTagProcessor(TagProcessorWithAutoStuffAndMemberTagName):
         Override as necessary.
 
         Args:
-            tag: A BeautifulSoup Tag.
+            tag: A BeautifulSoup Tag for a function.
 
         Returns:
             If this is a class/struct method, returns u'Method', otherwise

@@ -21,10 +21,15 @@ C++ codebases. At present:
 - Several Doxygen tag file entry types are mapped to their corresponding docset
   entry types. There may be more mapping opportunities to the [entry types][7]
   in the docset generation guide. 
+
 - Some behavior is hard-coded, like 1) the inclusion of function arguments and
   return types in entry names and 2) (partially-) qualified names for
   class/struct/namespace members. It probably makes sense to add some options
   to control this behavior and make the processing more extensible.
+
+## Requirements ##
+
+Python 2.7 with `beautifulsoup4` (4.4.1) and `docopt` (0.6.2)
 
 ## Typical Usage ##
 
@@ -55,9 +60,9 @@ C++ codebases. At present:
    `output/html/$(DOCSET_BUNDLE_ID).docset` should be ready to use with the
    tool of your choice.
 
-## Extending doxytag2zealdb ##
+## Extending It ##
 
-There are multiple ways to extending doxytag2zealdb's behavior:
+There are multiple ways to extend doxytag2zealdb's behavior:
 
 - Options can be added to existing `TagProcessor`s. See `TagProcessor` and
   `functionTagProcessor` for examples of this. Also see how keyword arguments get

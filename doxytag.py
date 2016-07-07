@@ -44,10 +44,9 @@ class TagProcessor(object):
         '''Initializer.
 
         Args:
-            **partially_qualified_names: bool. See get_name() for more info.
+            **include_parent_scopes: bool. See get_name() for more info.
         '''
-        self.partially_qualified_names = kwargs.get(
-            'partially_qualified_names', False)
+        self.include_parent_scopes = kwargs.get('include_parent_scopes', False)
 
     def match_criterion(self, tag):
         '''Determine if a tag matches a particular criterion.
@@ -85,7 +84,7 @@ class TagProcessor(object):
         keyword arguments that are provided when initializing a
         TagProcessor. For instance, a member of a class or namespace can have
         its parent scope included in the name by passing
-        partially_qualified_names=True to __init__().
+        include_parent_scopes=True to __init__().
 
         Args:
             tag: A BeautifulSoup Tag that satisfies match_criterion.
@@ -96,7 +95,7 @@ class TagProcessor(object):
         '''
         name = tag.findChild('name').contents[0]
 
-        if self.partially_qualified_names:
+        if self.include_parent_scopes:
             # Include parent scope in returned name
             parent_tag = tag.findParent()
             if parent_tag.get('kind') in ['class', 'struct', 'namespace']:

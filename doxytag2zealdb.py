@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Usage:
   doxytag2zealdb.py [-v] --tag FILENAME --db FILENAME
-                    [--partially-qualified-names]
+                    [--include-parent-scopes]
                     [--include-function-signatures]
   doxytag2zealdb.py (-h | --help)
 
@@ -31,7 +31,7 @@ Options:
   --db FILENAME                  Output SQlite3 database
   -v --verbose                   Print further information while processing the
                                  tag file
-  --partially-qualified-names    Include parent scope in entry names
+  --include-parent-scopes        Include parent scope in entry names
   --include-function-signatures  Include function arguments and return types in
                                  entry names
 
@@ -62,7 +62,7 @@ if __name__ == '__main__':
     # TagProcessors
     opts = {}
     for opt in [
-            '--partially-qualified-names',
+            '--include-parent-scopes',
             '--include-function-signatures'
     ]:
         # Make valid kwarg names by stripping leading '-'s or '--'s and

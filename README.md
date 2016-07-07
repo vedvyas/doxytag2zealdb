@@ -7,12 +7,12 @@ searchable Doxygen docsets with categorized entries in tools like
 
 ## Introduction ##
 
-[Doxygen's `GENERATE_DOCSET`][4] configuration option does most of the work to get a
-usable docset for use with helm-dash and friends. However, one still has to
-write a SQLite3 database to facilitate searching and browsing by entry type.
+[Doxygen's `GENERATE_DOCSET`][4] configuration option does most of the work to
+get a usable docset for use with helm-dash and friends. However, one still has
+to write a SQLite3 database to facilitate searching and browsing by entry type.
 
-doxytag2zealdb uses [Beautiful Soup][5] to traverse Doxygen tag files, then extracts
-and prepares entries to write to the DB as suggested in the
+doxytag2zealdb uses [Beautiful Soup][5] to traverse Doxygen tag files, then
+extracts and prepares entries to write to the DB as suggested in the
 [Dash guide on generating docsets][6].
 
 doxytag2zealdb has been developed against the Doxygen tag file output for a few
@@ -20,12 +20,11 @@ C++ codebases. At present:
 
 - Several Doxygen tag file entry types are mapped to their corresponding docset
   entry types. There may be more mapping opportunities to the [entry types][7]
-  in the docset generation guide. 
+  in the docset generation guide.
 
-- Some behavior is hard-coded, like 1) the inclusion of function arguments and
-  return types in entry names and 2) (partially-) qualified names for
-  class/struct/namespace members. It probably makes sense to add some options
-  to control this behavior and make the processing more extensible.
+- There are command-line options to include function arguments and return types
+  in entry names and include the parent scope in entry names for
+  class/struct/namespace members.
 
 ## Requirements ##
 
@@ -65,8 +64,8 @@ Python 2.7 with `beautifulsoup4` (4.4.1) and `docopt` (0.6.2)
 There are multiple ways to extend doxytag2zealdb's behavior:
 
 - Options can be added to existing `TagProcessor`s. See `TagProcessor` and
-  `functionTagProcessor` for examples of this. Also see how keyword arguments get
-  passed around from `doxytag2zealdb.py` to `TagfileProcessor` to
+  `functionTagProcessor` for examples of this. Also see how keyword arguments
+  get passed around from `doxytag2zealdb.py` to `TagfileProcessor` to
   `TagProcessor`s and their superclasses.
 
 - One can subclass `TagProcessor` (or one of its existing child classes) to

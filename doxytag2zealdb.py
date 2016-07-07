@@ -21,13 +21,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Usage:
   doxytag2zealdb.py [-v] --tag FILENAME --db FILENAME
+                    [--partially-qualified-names]
+                    [--include-function-signatures]
   doxytag2zealdb.py (-h | --help)
 
 Options:
-  -h --help       Show this screen
-  --tag FILENAME  Input Doxygen tag file to process
-  --db FILENAME   Output SQlite3 database
-  -v --verbose    Print further information while processing the tag file
+  -h --help                      Show this screen
+  --tag FILENAME                 Input Doxygen tag file to process
+  --db FILENAME                  Output SQlite3 database
+  -v --verbose                   Print further information while processing the
+                                 tag file
+  --partially-qualified-names    Include parent scope in entry names
+  --include-function-signatures  Include function arguments and return types in
+                                 entry names
 
 See the README for further information on how to use doxytag2zealdb while
 preparing docsets from Doxygen output.
@@ -52,7 +58,21 @@ if __name__ == '__main__':
     tag_filename = args['--tag']
     db_filename = args['--db']
 
+    # Prepare keyword arguments that should propagate all the way to
+    # TagProcessors
+    opts = {}
+    for opt in [
+            '--partially-qualified-names',
+            '--include-function-signatures'
+    ]:
+        # Make valid kwarg names by stripping leading '-'s or '--'s and
+        # replacing other '-'s with underscores
+        opt_kwarg_name = opt.strip('-').replace('-', '_')
+
+        # Pass whatever docopt reports, not just if it's non-False
+        opts[opt_kwarg_name] = args[opt]
+
     with ZealDB(db_filename, verbose=verbose) as zdb:
         with open(tag_filename, 'r') as tag:
-            tagfile_proc = TagfileProcessor(tag, zdb, verbose=verbose)
+            tagfile_proc = TagfileProcessor(tag, zdb, verbose=verbose, **opts)
             tagfile_proc.process()

@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 from codecs import open
 from os import path
 
-__version__ = '0.1.0'
+__version__ = '0.1.1'
 PROJECT_URL = 'https://gitlab.com/vedvyas/doxytag2zealdb'
 
 here = path.abspath(path.dirname(__file__))
@@ -24,8 +24,8 @@ setup(
     author_email='ved@vyas.io',
 
     url=PROJECT_URL,
-    download_url='%s/repository/archive.tar.bz2?ref=master/v%s' % (
-        PROJECT_URL, __version__),
+    download_url='%s/repository/archive.tar.bz2?ref=v%s' % (PROJECT_URL,
+                                                            __version__),
 
     classifiers=[
         'Development Status :: 3 - Alpha',

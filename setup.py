@@ -11,7 +11,9 @@ setup(
     name='doxytag2zealdb',
     version=__version__,
 
-    description='A python package that can be installed with pip.',
+    description='''doxytag2zealdb creates a SQLite3 database from a Doxygen tag
+    file to enable searchable Doxygen docsets with categorized entries in tools
+    like helm-dash, Zeal, and Dash.''',
     long_description=open(path.join(here, 'README.md'),
                           encoding='utf-8').read(),
     keywords='Zeal Dash Doxygen SQLite3',

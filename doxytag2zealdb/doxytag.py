@@ -212,8 +212,7 @@ class TagProcessorWithAutoEntryTypeAndFindByNamePlusAutoKind(
         tag_kind = unicode(class_name[:end_idx])
         entry_type = tag_kind.capitalize()
 
-        # Also assume that the matching tag kind attribute is the same as the
-        # entry type
+        # Pass it off to the superclass initializer and we're done
         super(TagProcessorWithAutoEntryTypeAndFindByNamePlusAutoKind,
               self).__init__(entry_type, tag_name, tag_kind, **kwargs)
 

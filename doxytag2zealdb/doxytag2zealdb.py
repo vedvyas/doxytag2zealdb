@@ -51,7 +51,7 @@ from docopt import docopt
 from doxytagfile import TagfileProcessor
 from zealdb import ZealDB
 
-if __name__ == '__main__':
+def main():
     args = docopt(__doc__, version='doxytag2zealdb v0.1')
 
     verbose = args.get('--verbose', False)
@@ -76,3 +76,6 @@ if __name__ == '__main__':
         with open(tag_filename, 'r') as tag:
             tagfile_proc = TagfileProcessor(tag, zdb, verbose=verbose, **opts)
             tagfile_proc.process()
+
+if __name__ == '__main__':
+    main()

@@ -30,6 +30,15 @@ C++ codebases. At present:
 
 Python 2.7 with `beautifulsoup4` (4.4.1) and `docopt` (0.6.2)
 
+## Installation ##
+
+`doxytag2zealdb/doxytag2zealdb.py` can be executed directly from a repository
+clone or extracted source tarball, provided that the requirements are
+installed. Alternatively, one may may run `setup.py` (`python setup.py
+install`) or install from PyPI
+(`pip install [--user] [--upgrade] doxytag2zealdb`). Note that the entrypoint
+is simply `doxytag2zealdb` when installing via these methods.
+
 ## Typical Usage ##
 
 1. Suppose you have a project named `foo` with Doxygen configuration in
@@ -51,7 +60,7 @@ Python 2.7 with `beautifulsoup4` (4.4.1) and `docopt` (0.6.2)
    where `$(DOCSET_BUNDLE_ID)` may be something like `org.doxygen.Project` if
    left uncustomized in `foo.dox`. This is where doxytag2zealdb comes in:
    
-        doxytag2zealdb.py --tag /path/to/desired/foo.tag \
+        doxytag2zealdb[.py] --tag /path/to/desired/foo.tag \
           --db /path/to/output/html/$(DOCSET_BUNDLE_ID).docset/Contents/Resources/docSet.dsidx \
           --include-parent-scopes --include-function-signatures
 

@@ -17,6 +17,8 @@
 # You should have received a copy of the GNU General Public License
 # along with doxytag2zealdb.  If not, see <http://www.gnu.org/licenses/>.
 
+from builtins import str
+from builtins import object
 class TagProcessor(object):
     '''
     TagProcessor is a base class for finding specific tags in a BeautifulSoup
@@ -209,7 +211,7 @@ class TagProcessorWithAutoEntryTypeAndFindByNamePlusAutoKind(
         class_name = type(self).__name__
         end_idx = class_name.rfind('TagProcessor')
 
-        tag_kind = unicode(class_name[:end_idx])
+        tag_kind = str(class_name[:end_idx])
         entry_type = tag_kind.capitalize()
 
         # Pass it off to the superclass initializer and we're done

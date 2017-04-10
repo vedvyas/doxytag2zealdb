@@ -28,7 +28,7 @@ C++ codebases. At present:
 
 ## Requirements ##
 
-Python 2.7 with `beautifulsoup4` (4.4.1) and `docopt` (0.6.2)
+Python 2.7 or Python 3 with `beautifulsoup4` (4.4.1) and `docopt` (0.6.2)
 
 ## Installation ##
 

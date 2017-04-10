@@ -37,10 +37,15 @@ setup(
         'GNU General Public License v3 or later (GPLv3+)',
 
         'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7'
+        'Programming Language :: Python :: 2.7',
+        'Programming Language :: Python :: 3'
     ],
 
-    install_requires=['docopt >= 0.6.2', 'beautifulsoup4 >= 4.4.1'],
+    install_requires=[
+        'docopt >= 0.6.2',
+        'beautifulsoup4 >= 4.4.1',
+        'future'
+    ],
     packages=find_packages(exclude=['docs', 'tests*']),
     package_data={
         'doxytag2zealdb': ['README.md', 'COPYING']

@@ -32,12 +32,13 @@ Python 2.7 with `beautifulsoup4` (4.4.1) and `docopt` (0.6.2)
 
 ## Installation ##
 
-`doxytag2zealdb/doxytag2zealdb.py` can be executed directly from a repository
+The `doxytag2zealdb` module can be executed directly from a repository
 clone or extracted source tarball, provided that the requirements are
-installed. Alternatively, one may may run `setup.py` (`python setup.py
-install`) or install from PyPI
-(`pip install [--user] [--upgrade] doxytag2zealdb`). Note that the entrypoint
-is simply `doxytag2zealdb` when installing via these methods.
+installed, using `python -m doxytag2zealdb`.
+
+Alternatively, one may may run `setup.py` (`python setup.py install`) or
+install from PyPI (`pip install [--user] [--upgrade] doxytag2zealdb`). Note that
+the entrypoint is simply `doxytag2zealdb` when installing via these methods.
 
 ## Typical Usage ##
 

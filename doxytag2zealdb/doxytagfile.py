@@ -22,7 +22,7 @@ from __future__ import print_function
 import sys
 from bs4 import BeautifulSoup
 
-from doxytag import *
+from .doxytag import *
 
 class TagfileProcessor(object):
     '''

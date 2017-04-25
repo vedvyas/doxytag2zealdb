@@ -43,6 +43,7 @@ setup(
 
     install_requires=[
         'docopt >= 0.6.2',
+        'lxml >= 3.6.0',
         'beautifulsoup4 >= 4.4.1',
         'future'
     ],

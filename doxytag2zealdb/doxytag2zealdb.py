@@ -20,10 +20,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 Usage:
-  doxytag2zealdb.py [-v] --tag FILENAME --db FILENAME
-                    [--include-parent-scopes]
-                    [--include-function-signatures]
-  doxytag2zealdb.py (-h | --help)
+  doxytag2zealdb [-v] --tag FILENAME --db FILENAME
+                 [--include-parent-scopes]
+                 [--include-function-signatures]
+  doxytag2zealdb (-h | --help)
 
 Options:
   -h --help                      Show this screen

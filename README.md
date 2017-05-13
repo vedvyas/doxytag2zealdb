@@ -61,7 +61,7 @@ the entrypoint is simply `doxytag2zealdb` when installing via these methods.
    where `$(DOCSET_BUNDLE_ID)` may be something like `org.doxygen.Project` if
    left uncustomized in `foo.dox`. This is where doxytag2zealdb comes in:
    
-        doxytag2zealdb[.py] --tag /path/to/desired/foo.tag \
+        [python -m] doxytag2zealdb --tag /path/to/desired/foo.tag \
           --db /path/to/output/html/$(DOCSET_BUNDLE_ID).docset/Contents/Resources/docSet.dsidx \
           --include-parent-scopes --include-function-signatures
 

@@ -19,10 +19,11 @@
 
 from __future__ import print_function
 
+from builtins import object
 import sys
 from bs4 import BeautifulSoup
 
-from doxytag import *
+from .doxytag import *
 
 class TagfileProcessor(object):
     '''

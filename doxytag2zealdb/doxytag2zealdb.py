@@ -48,8 +48,8 @@ from __future__ import print_function
 
 from docopt import docopt
 
-from doxytagfile import TagfileProcessor
-from zealdb import ZealDB
+from .doxytagfile import TagfileProcessor
+from .zealdb import ZealDB
 
 def main():
     args = docopt(__doc__, version='doxytag2zealdb v0.1')
@@ -76,6 +76,3 @@ def main():
         with open(tag_filename, 'r') as tag:
             tagfile_proc = TagfileProcessor(tag, zdb, verbose=verbose, **opts)
             tagfile_proc.process()
-
-if __name__ == '__main__':
-    main()

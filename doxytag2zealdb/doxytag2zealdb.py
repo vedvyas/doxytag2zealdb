@@ -23,10 +23,11 @@ Usage:
   doxytag2zealdb [-v] --tag FILENAME --db FILENAME
                  [--include-parent-scopes]
                  [--include-function-signatures]
-  doxytag2zealdb (-h | --help)
+  doxytag2zealdb (-h | --help | --version)
 
 Options:
   -h --help                      Show this screen
+  --version                      Show version
   --tag FILENAME                 Input Doxygen tag file to process
   --db FILENAME                  Output SQlite3 database
   -v --verbose                   Print further information while processing the

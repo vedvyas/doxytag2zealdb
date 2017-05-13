@@ -52,7 +52,7 @@ from .doxytagfile import TagfileProcessor
 from .zealdb import ZealDB
 
 def main():
-    args = docopt(__doc__, version='doxytag2zealdb v0.1')
+    args = docopt(__doc__, version='doxytag2zealdb v0.2.0')
 
     verbose = args.get('--verbose', False)
     tag_filename = args['--tag']

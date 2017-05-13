@@ -1,4 +1,4 @@
-'''doxytag2zealdb.__main__: executed when doxdoxytag2zeald directory
+'''doxytag2zealdb.__main__: executed when doxytag2zealdb directory
 is called as a script
 '''
 

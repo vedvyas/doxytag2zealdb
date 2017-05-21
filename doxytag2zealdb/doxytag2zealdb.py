@@ -49,11 +49,12 @@ from __future__ import print_function
 
 from docopt import docopt
 
+from . import __version__
 from .doxytagfile import TagfileProcessor
 from .zealdb import ZealDB
 
 def main():
-    args = docopt(__doc__, version='doxytag2zealdb v0.2.0')
+    args = docopt(__doc__, version='doxytag2zealdb v' + __version__)
 
     verbose = args.get('--verbose', False)
     tag_filename = args['--tag']

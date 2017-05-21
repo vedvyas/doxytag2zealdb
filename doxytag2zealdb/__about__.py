@@ -16,6 +16,6 @@
 # along with doxytag2zealdb.  If not, see <http://www.gnu.org/licenses/>.
 
 
-from .__about__ import __version__
+__all__ = ['__version__']
 
-__all__ = ["__version__"]
+__version__ = '0.2.1'

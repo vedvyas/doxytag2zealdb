@@ -2,12 +2,17 @@ from setuptools import setup, find_packages
 from codecs import open
 from os import path
 
-__version__ = '0.2.0'
-PROJECT_URL = 'https://gitlab.com/vedvyas/doxytag2zealdb'
-
 here = path.abspath(path.dirname(__file__))
 
+about = {}
+with open(path.join(here, 'doxytag2zealdb', '__about__.py')) as fp:
+    exec(fp.read(), about)
+
+__version__ = about['__version__']
+PROJECT_URL = 'https://gitlab.com/vedvyas/doxytag2zealdb'
+
 setup(
+    # TODO: move all of this metadata to doxytag2zealdb/__about__.py?
     name='doxytag2zealdb',
     version=__version__,
 

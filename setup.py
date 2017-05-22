@@ -54,7 +54,7 @@ setup(
     ],
     packages=find_packages(exclude=['docs', 'tests*']),
     package_data={
-        'doxytag2zealdb': ['README.md', 'COPYING']
+        'doxytag2zealdb': ['README.md', 'COPYING', 'CONTRIBUTORS']
     },
 
     entry_points={

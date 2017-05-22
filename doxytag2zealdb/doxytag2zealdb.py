@@ -53,6 +53,7 @@ from . import __version__
 from .doxytagfile import TagfileProcessor
 from .zealdb import ZealDB
 
+
 def main():
     args = docopt(__doc__, version='doxytag2zealdb v' + __version__)
 

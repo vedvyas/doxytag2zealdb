@@ -25,6 +25,7 @@ from bs4 import BeautifulSoup
 
 from .doxytag import *
 
+
 class TagfileProcessor(object):
     '''
     A TagfileProcessor object can be used to run through a Doxygen-generated

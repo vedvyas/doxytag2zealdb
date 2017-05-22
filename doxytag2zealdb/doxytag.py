@@ -19,6 +19,8 @@
 
 from builtins import str
 from builtins import object
+
+
 class TagProcessor(object):
     '''
     TagProcessor is a base class for finding specific tags in a BeautifulSoup

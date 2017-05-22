@@ -19,7 +19,6 @@ is called as a script
 # You should have received a copy of the GNU General Public License
 # along with doxytag2zealdb.  If not, see <http://www.gnu.org/licenses/>.
 
-
 from .doxytag2zealdb import main
 
 main()

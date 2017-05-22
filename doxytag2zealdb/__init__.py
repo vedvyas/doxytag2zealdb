@@ -15,7 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with doxytag2zealdb.  If not, see <http://www.gnu.org/licenses/>.
 
-
 from .__about__ import __version__
 
 __all__ = ["__version__"]

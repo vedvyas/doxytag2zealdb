@@ -23,6 +23,7 @@ from builtins import object
 import sys
 import sqlite3
 
+
 class ZealDB(object):
     '''
     A ZealDB object can be used to create an SQLite3 database and insert
@@ -91,7 +92,8 @@ class ZealDB(object):
         if (u'searchIndex',) in c:
             c.execute('DROP TABLE searchIndex')
 
-            if self.verbose: print('Dropped existing table', file=sys.stderr)
+            if self.verbose:
+                print('Dropped existing table', file=sys.stderr)
 
         c.executescript(
             '''

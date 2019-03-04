@@ -21,6 +21,7 @@ setup(
     like helm-dash, Zeal, and Dash.''',
     long_description=open(path.join(here, 'README.md'),
                           encoding='utf-8').read(),
+    long_description_content_type='text/markdown',
     keywords='Zeal Dash Doxygen SQLite3',
 
     license='GPLv3+',

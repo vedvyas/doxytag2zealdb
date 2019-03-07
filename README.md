@@ -26,8 +26,10 @@ C++ codebases. At present:
   in the docset generation guide.
 
 - There are command-line options to include function arguments and return types
-  in entry names and include the parent scope in entry names for
-  class/struct/namespace members.
+  in entry names (e.g., `some_func(int &output, const double input) -> bool` by
+  specifying `--include-function-signatures`) and include the parent scope in
+  entry names for class/struct/namespace members (e.g., `SomeClass::Method` by
+  specifying `--include-parent-scopes`). These options can be combined.
 
 ## Requirements ##
 

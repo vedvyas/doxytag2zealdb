@@ -13,7 +13,10 @@ to write a SQLite3 database to facilitate searching and browsing by entry type.
 
 doxytag2zealdb uses [Beautiful Soup][5] to traverse Doxygen tag files, then
 extracts and prepares entries to write to the DB as suggested in the
-[Dash guide on generating docsets][6].
+[Dash guide on generating docsets][6]. By default, it also updates
+`Info.plist`, which is expected to be one directory-level up from the output
+DB, to indicate that a Dash-style docset index is used (for Dash users). This
+can be disabled by specifying `--dont-update-info-plist`.
 
 doxytag2zealdb has been developed against the Doxygen tag file output for a few
 C++ codebases. At present:

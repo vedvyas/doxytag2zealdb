@@ -23,6 +23,7 @@ Usage:
   doxytag2zealdb [-v] --tag FILENAME --db FILENAME
                  [--include-parent-scopes]
                  [--include-function-signatures]
+                 [--dont-update-info-plist]
   doxytag2zealdb (-h | --help | --version)
 
 Options:
@@ -35,6 +36,7 @@ Options:
   --include-parent-scopes        Include parent scope in entry names
   --include-function-signatures  Include function arguments and return types in
                                  entry names
+  --dont-update-info-plist       Don't automatically update Info.plist for Dash
 
 See the README for further information on how to use doxytag2zealdb while
 preparing docsets from Doxygen output.
@@ -48,10 +50,12 @@ References:
 from __future__ import print_function
 
 from docopt import docopt
+import os
 
 from . import __version__
 from .doxytagfile import TagfileProcessor
 from .zealdb import ZealDB
+from .propertylist import DoxygenPropertyList
 
 
 def main():
@@ -79,3 +83,11 @@ def main():
         with open(tag_filename, 'r') as tag:
             tagfile_proc = TagfileProcessor(tag, zdb, verbose=verbose, **opts)
             tagfile_proc.process()
+
+    if not args['--dont-update-info-plist']:
+        plist_filename = os.path.join(
+            os.path.dirname(os.path.dirname(db_filename)), 'Info.plist')
+
+        plist = DoxygenPropertyList(plist_filename)
+        plist.set_property('isDashDocset', True)
+        plist.save()

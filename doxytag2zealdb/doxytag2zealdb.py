@@ -4,7 +4,7 @@ doxytag2zealdb: creates a SQLite3 database from a Doxygen tag file to enable
 searchable Doxygen docsets with categorized entries in tools like helm-dash
 [1], Zeal [2], and Dash [3]
 
-Copyright (c) 2016 Ved Vyas
+Copyright (c) 2016-2019 Ved Vyas
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

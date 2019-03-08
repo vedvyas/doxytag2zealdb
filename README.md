@@ -42,8 +42,9 @@ clone or extracted source tarball, provided that the requirements are
 installed, using `python -m doxytag2zealdb`.
 
 Alternatively, one may may run `setup.py` (`python setup.py install`) or
-install from PyPI (`pip install [--user] [--upgrade] doxytag2zealdb`). Note that
-the entrypoint is simply `doxytag2zealdb` when installing via these methods.
+install from PyPI (`pip install [--user] [--upgrade] doxytag2zealdb`). Note
+that the entrypoint is simply `doxytag2zealdb` when installing via these
+methods.
 
 ## Typical Usage ##
 

@@ -60,9 +60,13 @@ methods.
 
 2. If the top-level Doxygen output directory is `output`, go to `output/html/`
    and run `make`. An error about missing `docsetutil` is fine (and expected
-   when not using OS X).
+   when not using macOS and an old-enough Xcode install). Also,
+   `output/html/$(DOCSET_BUNDLE_ID).docset/Contents/Info.plist` [should have
+   the `isDashDocset` key set to `true`][9]. doxytag2zealdb will do this
+   automatically; additionally pass `--dont-update-info-plist` in the next step
+   if this is not desired.
 
-3. The SQLite DB is expected to be named docSet.dsidx and placed in the
+3. The SQLite DB is expected to be named `docSet.dsidx` and placed in the
    directory `output/html/$(DOCSET_BUNDLE_ID).docset/Contents/Resources/`,
    where `$(DOCSET_BUNDLE_ID)` may be something like `org.doxygen.Project` if
    left uncustomized in `foo.dox`. This is where doxytag2zealdb comes in:
@@ -89,7 +93,7 @@ There are multiple ways to extend doxytag2zealdb's behavior:
   `TagfileProcessor.init_tag_processors()` or separately register it at
   runtime, if you like.
 
-- Command-line options are easily added using [docopt][9]. See the module
+- Command-line options are easily added using [docopt][10]. See the module
   docstring and code in `doxytag2zealdb.py`.
 
 - ...
@@ -107,4 +111,5 @@ version 3 or (at your option) any later version. Please see COPYING.
 [6]: https://kapeli.com/docsets#createsqlite
 [7]: https://kapeli.com/docsets#supportedentrytypes
 [8]: https://kapeli.com/docsets#doxygen
-[9]: http://docopt.org
+[9]: https://kapeli.com/resources/Info.plist
+[10]: http://docopt.org

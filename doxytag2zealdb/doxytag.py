@@ -134,10 +134,25 @@ class TagProcessor(object):
             A string that would be appropriate to use as the documentation
             filename for an entry in a Zeal database.
         '''
+        def get_first_content_or_none(el):
+            '''Get the first value of the tag's contents, or None if no child is found.
+			
+			Args:
+				el: An BeautifulSoup Tag.
+			Returns:
+				A string of the first value of the tag's contents, or None if no child is found.
+			'''
+            if len(el.contents) > 0:
+                return el.contents[0]
+            return None
+
         if tag.find('filename', recursive=False) is not None:
-            return tag.filename.contents[0]
+            return get_first_content_or_none(tag.filename) or ''
         elif tag.find('anchorfile', recursive=False) is not None:
-            return tag.anchorfile.contents[0] + '#' + tag.anchor.contents[0]
+            anchorfile = get_first_content_or_none(tag.anchorfile)
+            anchor = get_first_content_or_none(tag.anchor)
+            fragment = ('#' + anchor) if anchor  else ''
+            return anchorfile + fragment
 
 
 class TagProcessorWithEntryTypeAndFindByNamePlusKind(TagProcessor):

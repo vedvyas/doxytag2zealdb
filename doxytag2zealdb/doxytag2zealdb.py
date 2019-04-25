@@ -85,8 +85,13 @@ def main():
             tagfile_proc.process()
 
     if not args['--dont-update-info-plist']:
-        plist_filename = os.path.join(
-            os.path.dirname(os.path.dirname(db_filename)), 'Info.plist')
+        path = os.path
+        plist_filename = path.join(
+            path.dirname(path.dirname(path.abspath(db_filename))),
+            'Info.plist')
+
+        if verbose:
+            print('Going to update %s' % plist_filename)
 
         plist = DoxygenPropertyList(plist_filename)
         plist.set_property('isDashDocset', True)

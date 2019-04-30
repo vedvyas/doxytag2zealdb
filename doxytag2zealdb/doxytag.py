@@ -134,10 +134,14 @@ class TagProcessor(object):
             A string that would be appropriate to use as the documentation
             filename for an entry in a Zeal database.
         '''
+        first_content_or_empty = lambda el: el.contents[0] if el.contents else ''
+
         if tag.find('filename', recursive=False) is not None:
-            return tag.filename.contents[0]
+            return first_content_or_empty(tag.filename)
         elif tag.find('anchorfile', recursive=False) is not None:
-            return tag.anchorfile.contents[0] + '#' + tag.anchor.contents[0]
+            anchorfile = first_content_or_empty(tag.anchorfile)
+            anchor = first_content_or_empty(tag.anchor)
+            return anchorfile + '#' + anchor if anchor else anchorfile
 
 
 class TagProcessorWithEntryTypeAndFindByNamePlusKind(TagProcessor):

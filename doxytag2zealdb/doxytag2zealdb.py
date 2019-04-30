@@ -49,8 +49,9 @@ References:
 
 from __future__ import print_function
 
-from docopt import docopt
 import os
+import sys
+from docopt import docopt
 
 from . import __version__
 from .doxytagfile import TagfileProcessor

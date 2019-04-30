@@ -99,6 +99,11 @@ There are multiple ways to extend doxytag2zealdb's behavior:
 
 - ...
 
+## Contributing ##
+
+Please file issues and submit pull (merge) requests upstream at
+<https://gitlab.com/vedvyas/doxytag2zealdb>.
+
 ## License ##
 
 doxytag2zealdb is distributed under the terms of the GNU General Public License

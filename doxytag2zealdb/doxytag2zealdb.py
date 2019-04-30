@@ -92,7 +92,7 @@ def main():
             'Info.plist')
 
         if verbose:
-            print('Going to update %s' % plist_filename)
+            print('Going to update %s' % plist_filename, file=sys.stderr)
 
         plist = DoxygenPropertyList(plist_filename)
         plist.set_property('isDashDocset', True)

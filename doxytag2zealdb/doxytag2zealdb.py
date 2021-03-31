@@ -24,6 +24,8 @@ Usage:
                  [--include-parent-scopes]
                  [--include-function-signatures]
                  [--dont-update-info-plist]
+                 [--enable-javascript]
+                 [--fallback-url URL]
   doxytag2zealdb (-h | --help | --version)
 
 Options:
@@ -37,6 +39,8 @@ Options:
   --include-function-signatures  Include function arguments and return types in
                                  entry names
   --dont-update-info-plist       Don't automatically update Info.plist for Dash
+  --enable-javascript            Enable Javascript in the Docset
+  --fallback-url URL             Add a specified fallback URL
 
 See the README for further information on how to use doxytag2zealdb while
 preparing docsets from Doxygen output.
@@ -96,4 +100,11 @@ def main():
 
         plist = DoxygenPropertyList(plist_filename)
         plist.set_property('isDashDocset', True)
+
+        if args['--enable-javascript']:
+            plist.set_property('isJavaScriptEnabled', True)
+
+        if args['--fallback-url']:
+            plist.set_property('DashDocSetFallbackURL', args.get('--fallback-url'))
+
         plist.save()

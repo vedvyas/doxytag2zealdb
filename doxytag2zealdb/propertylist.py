@@ -87,7 +87,7 @@ class DoxygenPropertyList(object):
             key_object = self.soup.new_tag('key')
             key_object.string = key
 
-            self.properties.append(key_object)
+            self.properties.extend([key_object, '\n'])
 
             value_object = self.soup.new_tag(
                 {str: 'string', int: 'integer', bool: str(value).lower()}[
@@ -95,7 +95,7 @@ class DoxygenPropertyList(object):
             if value_type is not bool:
                 value_object.string = str(value)
 
-            self.properties.append(value_object)
+            self.properties.extend([value_object, '\n'])
 
             return
 

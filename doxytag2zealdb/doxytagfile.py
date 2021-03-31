@@ -88,6 +88,7 @@ class TagfileProcessor(object):
         register('enumvalue', enumvalueTagProcessor(**self.opts))
         register('typedef', typedefTagProcessor(**self.opts))
         register('variable', variableTagProcessor(**self.opts))
+        register('page', pageTagProcessor(**self.opts))
 
     def register_tag_processor(self, name, tag_processor):
         '''Register a tag processor.

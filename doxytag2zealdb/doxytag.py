@@ -267,7 +267,7 @@ class fileTagProcessor(TagProcessorWithAutoStuffAndCompoundTagName):
             A string containing the correct documentation filename from the
             tag.
         '''
-        return super(fileTagProcessor, self).get_filename(tag) + '.html'
+        return super(fileTagProcessor, self).get_filename(tag)
 
 
 class namespaceTagProcessor(TagProcessorWithAutoStuffAndCompoundTagName):

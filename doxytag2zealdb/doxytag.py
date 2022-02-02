@@ -143,6 +143,21 @@ class TagProcessor(object):
             anchor = first_content_or_empty(tag.anchor)
             return anchorfile + '#' + anchor if anchor else anchorfile
 
+    @staticmethod
+    def add_extension_if_missing(filename, extension):
+        '''Add the given extension, if the filename doesn't already have it
+
+        Args:
+            filename: the existing filename
+            extension: the extension to maybe add
+
+        Returns:
+            the filename which now definitely ends with the extension
+        '''
+        if not filename.endswith(extension):
+            filename += extension
+        return filename
+
 
 class TagProcessorWithEntryTypeAndFindByNamePlusKind(TagProcessor):
     '''A convenient TagProcessor subclass for cases where get_entry_type should
@@ -267,7 +282,8 @@ class fileTagProcessor(TagProcessorWithAutoStuffAndCompoundTagName):
             A string containing the correct documentation filename from the
             tag.
         '''
-        return super(fileTagProcessor, self).get_filename(tag)
+        filename = super(fileTagProcessor, self).get_filename(tag)
+        return self.add_extension_if_missing(filename, '.html')
 
 
 class namespaceTagProcessor(TagProcessorWithAutoStuffAndCompoundTagName):
@@ -386,3 +402,27 @@ class typedefTagProcessor(TagProcessorWithAutoStuffAndMemberTagName):
 class variableTagProcessor(TagProcessorWithAutoStuffAndMemberTagName):
     '''Process variable tags.'''
     pass
+
+
+class pageTagProcessor(TagProcessorWithAutoStuffAndCompoundTagName):
+    '''Process page tags.'''
+
+    def __init__(self, **kwargs):
+        '''Initializer. Utilizes inherited machinery, then manually tweaks the
+        entry type to be one of the types supported by Dash (see README).'''
+        super(pageTagProcessor, self).__init__(**kwargs)
+        self.entry_type = u'Guide'
+
+    def get_name(self, tag):
+        title = tag.findChild('title')
+        if title:
+            title_text = title.get_text()
+            if title_text:
+                return title_text
+
+        # failed: defer to parent
+        return super(pageTagProcessor, self).get_name(tag)
+
+    def get_filename(self, tag):
+        filename = super(pageTagProcessor, self).get_filename(tag)
+        return self.add_extension_if_missing(filename, '.html')
